@@ -21,7 +21,24 @@ func main() {
 	if err != nil {
 		exit(fmt.Sprintf("Failed to parse %s\n", *csvFile))
 	}
-	fmt.Println(lines)
+	problems := problemParser(lines)
+	fmt.Println(problems)
+}
+
+type Question struct {
+	q string
+	a string
+}
+
+func problemParser(lines [][]string) []Question {
+	problem := make([]Question, len(lines))
+	for i, line := range lines {
+		problem[i] = Question{
+			q: line[0],
+			a: line[1],
+		}
+	}
+	return problem
 }
 
 func exit(s string) {
